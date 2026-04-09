@@ -28,6 +28,8 @@ django-cors-headers = "*"
 django-dbsettings = "*"
 django-import-export = "*"
 inflection = "*"
+channels = "*"
+channels-redis = "*"
 
 [dev-packages]
 coveralls = "*"
