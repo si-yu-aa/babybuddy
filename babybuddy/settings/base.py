@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "reports",
     "axes",
     "django_filters",
+    "channels",
     "rest_framework",
     "rest_framework.authtoken",
     "widget_tweaks",
@@ -386,6 +387,18 @@ ROLLING_SESSION_REFRESH = 86400
 # See https://docs.djangoproject.com/en/5.0/releases/3.2/#customizing-type-of-auto-created-primary-keys
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+# ASGI / Channels
+ASGI_APPLICATION = "babybuddy.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(os.getenv("REDIS_HOST") or "localhost", 6379)],
+        },
+    },
+}
 
 # Baby Buddy configuration
 # See https://docs.baby-buddy.net/ for details about these settings.
