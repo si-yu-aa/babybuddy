@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "dashboard",
     "reports",
+    "social",
     "axes",
     "django_filters",
     "channels",
