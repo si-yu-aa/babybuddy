@@ -20,6 +20,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
+    media_url = serializers.SerializerMethodField()
+    video_url = serializers.SerializerMethodField()
     is_liked_by_me = serializers.SerializerMethodField()
 
     class Meta:
