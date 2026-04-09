@@ -1,0 +1,72 @@
+<div class="card mb-3">
+    <div class="card-body">
+        <form id="post-form" enctype="multipart/form-data">
+            <div class="mb-2">
+                <textarea class="form-control" name="content"
+                          placeholder="What's happening?" rows="2"></textarea>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <label class="btn btn-sm btn-outline-secondary me-2">
+                        📷 <input type="file" name="media" accept="image/*" hidden
+                                  onchange="handleMediaSelect(this, 'image')">
+                    </label>
+                    <label class="btn btn-sm btn-outline-secondary">
+                        🎬 <input type="file" name="video" accept="video/*" hidden
+                                  onchange="handleMediaSelect(this, 'video')">
+                    </label>
+                    <span id="selected-media" class="ms-2 text-muted"></span>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Post</button>
+            </div>
+            <input type="hidden" name="media_type" id="media_type" value="none">
+        </form>
+    </div>
+</div>
+
+<script>
+let selectedMediaType = 'none';
+
+function handleMediaSelect(input, type) {
+    if (input.files && input.files[0]) {
+        document.getElementById('media_type').value = type;
+        document.getElementById('selected-media').textContent = input.files[0].name;
+    }
+}
+
+document.getElementById('post-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+
+    fetch('/api/social/posts/', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.id) {
+            this.reset();
+            document.getElementById('selected-media').textContent = '';
+            refreshFeed();
+        }
+    });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>

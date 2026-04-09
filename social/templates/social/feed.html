@@ -1,0 +1,118 @@
+{% extends "babybuddy/page.html" %}
+
+{% block title %}Social Feed{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            {% include "social/components/post_form.html" %}
+
+            <div id="feed-container">
+                <!-- Posts loaded here via JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Toast -->
+<div id="notification-toast" class="toast" role="alert" aria-live="assertive"
+     aria-atomic="true" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 9999; display: none;">
+    <div class="toast-body">
+        <strong id="notification-author"></strong>
+        <p id="notification-content" class="mb-0"></p>
+        <button type="button" class="btn btn-sm btn-primary" onclick="refreshFeed()">View</button>
+    </div>
+</div>
+
+<script>
+const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+const feedSocket = new WebSocket(wsProtocol + '//' + location.host + '/ws/social/feed/');
+
+feedSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    if (data.type === 'new_post') {
+        showNotification(data.post);
+    }
+};
+
+function showNotification(post) {
+    document.getElementById('notification-author').textContent = post.author_display + ' posted:';
+    document.getElementById('notification-content').textContent = post.content || '(Media post)';
+    const toast = new bootstrap.Toast(document.getElementById('notification-toast'));
+    document.getElementById('notification-toast').style.display = 'block';
+    toast.show();
+}
+
+function refreshFeed() {
+    fetch('/api/social/posts/')
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('feed-container').innerHTML = data.results.map(renderPost).join('');
+        });
+}
+
+function renderPost(post) {
+    let mediaHtml = '';
+    if (post.media_type === 'image' && post.media_url) {
+        mediaHtml = '<img src="' + post.media_url + '" class="img-fluid rounded mb-2" alt="Post media">';
+    } else if (post.media_type === 'video' && post.video_url) {
+        mediaHtml = '<video src="' + post.video_url + '" controls class="img-fluid rounded mb-2"></video>';
+    }
+
+    return '<div class="card mb-3">' +
+        '<div class="card-body">' +
+            '<h6 class="card-subtitle mb-2 text-muted">' +
+                '<strong>' + post.author.display_name + '</strong> - ' + formatTime(post.created_at) +
+            '</h6>' +
+            '<p class="card-text">' + (post.content || '') + '</p>' +
+            mediaHtml +
+            '<div class="d-flex justify-content-between align-items-center">' +
+                '<button class="btn btn-sm btn-outline-primary like-btn" ' +
+                        'data-post-id="' + post.id + '" ' +
+                        'onclick="toggleLike(this, ' + post.id + ')">' +
+                    '❤️ ' + post.like_count +
+                '</button>' +
+                '<span class="text-muted">💬 ' + post.comment_count + ' comments</span>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
+}
+
+function formatTime(isoString) {
+    const date = new Date(isoString);
+    const now = new Date();
+    const diff = (now - date) / 1000;
+    if (diff < 60) return 'Just now';
+    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
+    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    return date.toLocaleDateString();
+}
+
+function toggleLike(btn, postId) {
+    fetch('/api/social/posts/' + postId + '/like/', { method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') } })
+        .then(r => r.json())
+        .then(data => {
+            btn.innerHTML = '❤️ ' + (data.liked ? 'liked' : 'unliked');
+        });
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Load feed on page load
+refreshFeed();
+</script>
+{% endblock %}
