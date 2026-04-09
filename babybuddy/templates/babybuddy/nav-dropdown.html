@@ -108,6 +108,12 @@
                 {% trans "Timeline" %}
             </a>
         </li>
+        <li class="nav-item{% if request.path == '/social/' %} active{% endif %}">
+            <a class="nav-link" href="{% url 'social:feed' %}">
+                <i class="icon-website" aria-hidden="true"></i>
+                {% trans "Social Feed" %}
+            </a>
+        </li>
         <li class="nav-item dropdown">
         <a id="nav-children-menu-link"
            class="nav-link dropdown-toggle"
