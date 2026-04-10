@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
 {% block title %}
-    {% trans "Weight" %}
+    {% trans "体重" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Weight" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "体重" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Weight" %}
+        {% trans "体重" %}
         {% if perms.core.add_weight %}
             <a href="{% url 'core:weight-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-weight" aria-hidden="true"></i> {% trans "Add Weight" %}
+                <i class="icon-weight" aria-hidden="true"></i> {% trans "添加体重" %}
             </a>
         {% endif %}
     </h1>
@@ -20,13 +20,13 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "日期" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Weight" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "体重" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                         <td>
                             <div class="btn-group btn-group-sm"
                                  role="group"
-                                 aria-label="{% trans "Actions" %}">
+                                 aria-label="{% trans "操作" %}">
                                 {% if perms.core.change_weight %}
                                     <a href="{% url 'core:weight-update' weight.id %}"
                                        class="btn btn-primary">
@@ -68,7 +68,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No weight entries found." %}</th>
+                        <th colspan="5">{% trans "未找到体重记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

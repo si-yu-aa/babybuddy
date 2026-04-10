@@ -1,23 +1,99 @@
 {% extends "registration/base.html" %}
-{% load i18n static widget_tweaks %}
-{% block title %}Login{% endblock %}
+{% load static widget_tweaks %}
+{% block title %}登录{% endblock %}
 {% block content %}
     <form class="login-form" method="post" action="{% url 'babybuddy:login' %}">
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
-        <label class="visually-hidden" for="username-input-group">{{ form.username.label }}</label>
+        <label class="visually-hidden" for="username-input-group">用户名</label>
         <div class="input-group mb-3 fade-in">
             <span class="input-group-text text-body-secondary"><i class="icon-user" aria-hidden="true"></i></span>
-            {% render_field form.username name='username' class+='form-control' id='username-input-group' placeholder=form.username.label %}
+            {% render_field form.username name='username' class+='form-control' id='username-input-group' placeholder='用户名' %}
         </div>
-        <label class="visually-hidden" for="password-input-group">{{ form.password.label }}</label>
+        <label class="visually-hidden" for="password-input-group">密码</label>
         <div class="input-group mb-3 fade-in">
             <span class="input-group-text text-body-secondary"><i class="icon-lock" aria-hidden="true"></i></span>
-            {% render_field form.password name='password' class+='form-control' id='password-input-group' placeholder=form.password.label %}
+            {% render_field form.password name='password' class+='form-control' id='password-input-group' placeholder='密码' %}
         </div>
-        <button class="btn btn-primary w-100 fade-in" type="submit" name="login">{% trans "Login" %}</button>
+        <button class="btn btn-primary w-100 fade-in" type="submit" name="login">登录</button>
     </form>
-    <div class="bg-faded text-center px-4 py-3 rounded-bottom">
-        <a href="{% url 'babybuddy:password_reset' %}" name="reset">{% trans "Forgot your password?" %}</a>
+
+    <!-- Simple Registration -->
+    <div class="mt-3 text-center">
+        <button class="btn btn-link btn-sm" type="button" onclick="showRegisterForm()">
+            注册新用户
+        </button>
     </div>
+
+    <div id="register-form" style="display: none;" class="mt-3 border-top pt-3">
+        <h6 class="text-center mb-3">注册家庭成员</h6>
+        <form id="reg-form">
+            <div class="input-group mb-2">
+                <span class="input-group-text text-body-secondary"><i class="icon-user" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" id="reg-username" placeholder="用户名">
+            </div>
+            <button class="btn btn-success w-100" type="submit">创建账户</button>
+        </form>
+        <div id="register-result" class="mt-2 text-center small"></div>
+    </div>
+
+    <div class="bg-faded text-center px-4 py-3 rounded-bottom">
+        <a href="{% url 'babybuddy:password_reset' %}" name="reset">忘记密码？</a>
+    </div>
+
+    <script>
+    function showRegisterForm() {
+        var form = document.getElementById('register-form');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.getElementById('reg-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var username = document.getElementById('reg-username').value.trim();
+        if (!username) {
+            document.getElementById('register-result').innerHTML = '<span class="text-danger">请输入用户名</span>';
+            return;
+        }
+
+        var formData = new FormData();
+        formData.append('username', username);
+
+        fetch('/social/register/', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('register-result').innerHTML =
+                    '<span class="text-success">用户 ' + data.username + ' 创建成功！<br>密码: <strong>' + data.password + '</strong><br>请告诉用户此密码</span>';
+                document.getElementById('reg-username').value = '';
+            } else {
+                document.getElementById('register-result').innerHTML = '<span class="text-danger">' + data.error + '</span>';
+            }
+        })
+        .catch(err => {
+            document.getElementById('register-result').innerHTML = '<span class="text-danger">注册失败</span>';
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    </script>
 {% endblock %}

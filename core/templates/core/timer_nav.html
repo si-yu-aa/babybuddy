@@ -6,17 +6,17 @@
    data-bs-toggle="dropdown"
    aria-haspopup="true"
    aria-expanded="false"><i class="icon-timer" aria-hidden="true"></i>
-{% trans "Timers" %}
+{% trans "计时器" %}
 </a>
 <div class="dropdown-menu" aria-labelledby="nav-timer-menu-link">
     {% if perms.core.add_timer %}
         <a class="dropdown-item" href="{% url 'core:timer-add' %}">
-            <i class="icon-add" aria-hidden="true"></i> {% trans "Start Timer" %}
+            <i class="icon-add" aria-hidden="true"></i> {% trans "开始计时器" %}
         </a>
     {% endif %}
     {% if perms.core.view_timer %}
         <a class="dropdown-item" href="{% url 'core:timer-list' %}">
-            <i class="icon-list" aria-hidden="true"></i> {% trans "View Timers" %}
+            <i class="icon-list" aria-hidden="true"></i> {% trans "查看计时器" %}
         </a>
     {% endif %}
     {% if perms.core.add_timer %}
@@ -27,7 +27,7 @@
             {% csrf_token %}
             {% if children.count > 1 %}
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
+                <h6 class="dropdown-header">{% trans "快速开始计时器…" %}</h6>
                 {% for child in children %}
                     <button class="dropdown-item d-flex align-items-center"
                             type="submit"
@@ -39,18 +39,18 @@
                 {% endfor %}
             {% else %}
                 <button class="dropdown-item" type="submit">
-                    <i class="icon-timer" aria-hidden="true"></i> {% trans "Quick Start Timer" %}
+                    <i class="icon-timer" aria-hidden="true"></i> {% trans "快速开始计时器" %}
                 </button>
             {% endif %}
         </form>
     {% endif %}
     {% if timers %}
         <div class="dropdown-divider"></div>
-        <h6 class="dropdown-header">{% trans "Timers" %}</h6>
+        <h6 class="dropdown-header">{% trans "计时器" %}</h6>
         {% for timer in timers %}
             <a class="dropdown-item" href="{% url 'core:timer-detail' timer.id %}">{{ timer.title_with_child }}</a>
         {% empty %}
-            <a class="dropdown-item disabled" href="#">{% trans "None" %}</a>
+            <a class="dropdown-item disabled" href="#">{% trans "无" %}</a>
         {% endfor %}
     {% endif %}
 </div>

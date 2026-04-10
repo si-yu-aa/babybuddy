@@ -1,13 +1,13 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 {% block header %}
-    <a href="{% url "core:tummytime-list" %}">{% trans "Today's Tummy Time" %}</a>
+    <a href="{% url "core:tummytime-list" %}">{% trans "今日趴趴时间" %}</a>
 {% endblock %}
 {% block title %}
     {% if stats.count > 0 %}
         {{ stats.total|duration_string }}
     {% else %}
-        {% trans "None" %}
+        {% trans "无" %}
     {% endif %}
 {% endblock %}
 {% block listgroup %}
@@ -15,7 +15,7 @@
         {% for instance in instances %}
             <li class="list-group-item">
                 {% blocktrans trimmed with duration=instance.duration|duration_string end=instance.end|time %}
-                    {{ duration }} at {{ end }}
+                    {{ duration }} 于 {{ end }}
                 {% endblocktrans %}
             </li>
         {% endfor %}

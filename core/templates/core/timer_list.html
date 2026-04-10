@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load bootstrap datetime duration i18n widget_tweaks %}
 {% block title %}
-    {% trans "Timers" %}
+    {% trans "计时器" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Timers" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "计时器" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Timers" %}
+        {% trans "计时器" %}
         {% if perms.core.add_timer %}
             <a href="{% url 'core:timer-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-timer" aria-hidden="true"></i> {% trans "Start Timer" %}
+                <i class="icon-timer" aria-hidden="true"></i> {% trans "开始计时器" %}
             </a>
         {% endif %}
     </h1>
@@ -20,12 +20,12 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Start" %}</th>
-                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "开始" %}</th>
+                    <th>{% trans "名称" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "User" %}</th>
+                    <th>{% trans "用户" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="7">{% trans "No timer entries found." %}</th>
+                        <th colspan="7">{% trans "未找到计时器记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

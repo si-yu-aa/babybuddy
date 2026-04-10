@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime duration misc i18n widget_tweaks %}
 {% block title %}
-    {% trans "Tummy Time" %}
+    {% trans "趴趴时间" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Tummy Time" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "趴趴时间" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Tummy Time" %}
+        {% trans "趴趴时间" %}
         {% if perms.core.add_tummytime %}
             <a href="{% url 'core:tummytime-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-tummytime" aria-hidden="true"></i> {% trans "Add Tummy Time" %}</a>
+                <i class="icon-tummytime" aria-hidden="true"></i> {% trans "添加趴趴时间" %}</a>
         {% endif %}
     </h1>
     {% include 'babybuddy/filter.html' %}
@@ -19,16 +19,16 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Start" %}</th>
-                    <th>{% trans "End" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "开始" %}</th>
+                    <th>{% trans "结束" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Duration" %}</th>
-                    <th>{% trans "Previous" %}</th>
-                    <th>{% trans "Milestone" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "持续时间" %}</th>
+                    <th>{% trans "上一次" %}</th>
+                    <th>{% trans "里程碑" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +74,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No tummy time entries found." %}</th>
+                        <th colspan="8">{% trans "未找到趴趴时间记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

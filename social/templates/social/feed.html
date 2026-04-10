@@ -1,6 +1,6 @@
 {% extends "babybuddy/page.html" %}
 
-{% block title %}Social Feed{% endblock %}
+{% block title %}动态{% endblock %}
 
 {% block content %}
 <div class="container">
@@ -21,13 +21,38 @@
     <div class="toast-body">
         <strong id="notification-author"></strong>
         <p id="notification-content" class="mb-0"></p>
-        <button type="button" class="btn btn-sm btn-primary" onclick="refreshFeed()">View</button>
+        <button type="button" class="btn btn-sm btn-primary" onclick="refreshFeed()">查看</button>
     </div>
 </div>
 
 <script>
 const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
 const feedSocket = new WebSocket(wsProtocol + '//' + location.host + '/ws/social/feed/');
+
+// Remote logging - send console logs to server
+function remoteLog(level, message, context) {
+    fetch('/api/social/log/', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: JSON.stringify({ level, message, context })
+    }).catch(() => {});  // Ignore errors
+}
+
+// Override console methods to also send to server
+const origLog = console.log;
+const origError = console.error;
+console.log = function(...args) {
+    remoteLog('info', args.join(' '));
+    origLog.apply(console, args);
+};
+console.error = function(...args) {
+    remoteLog('error', args.join(' '));
+    origError.apply(console, args);
+};
 
 feedSocket.onmessage = function(e) {
     const data = JSON.parse(e.data);
@@ -37,8 +62,8 @@ feedSocket.onmessage = function(e) {
 };
 
 function showNotification(post) {
-    document.getElementById('notification-author').textContent = post.author_display + ' posted:';
-    document.getElementById('notification-content').textContent = post.content || '(Media post)';
+    document.getElementById('notification-author').textContent = post.author_display + ' 发布了新动态：';
+    document.getElementById('notification-content').textContent = post.content || '(媒体动态)';
     const toast = new bootstrap.Toast(document.getElementById('notification-toast'));
     document.getElementById('notification-toast').style.display = 'block';
     toast.show();
@@ -55,25 +80,50 @@ function refreshFeed() {
 function renderPost(post) {
     let mediaHtml = '';
     if (post.media_type === 'image' && post.media_url) {
-        mediaHtml = '<img src="' + post.media_url + '" class="img-fluid rounded mb-2" alt="Post media">';
+        mediaHtml = '<img src="' + post.media_url + '" class="img-fluid rounded mb-2" alt="图片">';
     } else if (post.media_type === 'video' && post.video_url) {
         mediaHtml = '<video src="' + post.video_url + '" controls class="img-fluid rounded mb-2"></video>';
     }
 
-    return '<div class="card mb-3">' +
+    let likedByHtml = '';
+    if (post.liked_by && post.liked_by.length > 0) {
+        const names = post.liked_by.map(u => u.display_name).join('、');
+        likedByHtml = '<div class="text-primary small mb-2">❤️ ' + names + '</div>';
+    }
+
+    let commentsHtml = '';
+    if (post.comments && post.comments.length > 0) {
+        commentsHtml = '<div class="mt-2 mb-2">' +
+            post.comments.map(c =>
+                '<div class="small"><strong>' + c.author.display_name + ':</strong> ' + c.content + '</div>'
+            ).join('') +
+        '</div>';
+    }
+
+    return '<div class="card mb-3" id="post-' + post.id + '">' +
         '<div class="card-body">' +
             '<h6 class="card-subtitle mb-2 text-muted">' +
                 '<strong>' + post.author.display_name + '</strong> - ' + formatTime(post.created_at) +
             '</h6>' +
             '<p class="card-text">' + (post.content || '') + '</p>' +
             mediaHtml +
+            likedByHtml +
             '<div class="d-flex justify-content-between align-items-center">' +
-                '<button class="btn btn-sm btn-outline-primary like-btn" ' +
+                '<button class="btn btn-sm ' + (post.is_liked_by_me ? 'btn-primary' : 'btn-outline-primary') + ' like-btn" ' +
                         'data-post-id="' + post.id + '" ' +
+                        'data-liked="' + post.is_liked_by_me + '" ' +
                         'onclick="toggleLike(this, ' + post.id + ')">' +
                     '❤️ ' + post.like_count +
                 '</button>' +
-                '<span class="text-muted">💬 ' + post.comment_count + ' comments</span>' +
+                '<span class="text-muted">💬 ' + post.comment_count + ' 评论</span>' +
+            '</div>' +
+            commentsHtml +
+            '<div class="mt-2 border-top pt-2">' +
+                '<div class="input-group input-group-sm">' +
+                    '<input type="text" class="form-control" placeholder="写评论..." ' +
+                           'id="comment-input-' + post.id + '" onkeypress="handleCommentKey(event, ' + post.id + ')">' +
+                    '<button class="btn btn-outline-secondary" type="button" onclick="submitComment(' + post.id + ')">发送</button>' +
+                '</div>' +
             '</div>' +
         '</div>' +
     '</div>';
@@ -83,18 +133,59 @@ function formatTime(isoString) {
     const date = new Date(isoString);
     const now = new Date();
     const diff = (now - date) / 1000;
-    if (diff < 60) return 'Just now';
-    if (diff < 3600) return Math.floor(diff / 60) + 'm ago';
-    if (diff < 86400) return Math.floor(diff / 3600) + 'h ago';
+    if (diff < 60) return '刚刚';
+    if (diff < 3600) return Math.floor(diff / 60) + '分钟前';
+    if (diff < 86400) return Math.floor(diff / 3600) + '小时前';
     return date.toLocaleDateString();
 }
 
 function toggleLike(btn, postId) {
-    fetch('/api/social/posts/' + postId + '/like/', { method: 'POST', headers: { 'X-CSRFToken': getCookie('csrftoken') } })
-        .then(r => r.json())
+    console.log('toggleLike called, postId:', postId, 'btn:', btn);
+    fetch('/api/social/posts/' + postId + '/like/', { method: 'POST', credentials: 'include', headers: { 'X-CSRFToken': getCookie('csrftoken') } })
+        .then(r => {
+            console.log('Response status:', r.status);
+            return r.json();
+        })
         .then(data => {
-            btn.innerHTML = '❤️ ' + (data.liked ? 'liked' : 'unliked');
+            console.log('Like response:', data);
+            refreshFeed();
+        })
+        .catch(err => {
+            console.error('Like error:', err);
         });
+}
+
+function handleCommentKey(event, postId) {
+    if (event.key === 'Enter') {
+        submitComment(postId);
+    }
+}
+
+function submitComment(postId) {
+    const input = document.getElementById('comment-input-' + postId);
+    const content = input.value.trim();
+    if (!content) return;
+
+    const formData = new FormData();
+    formData.append('content', content);
+
+    fetch('/api/social/posts/' + postId + '/comments/', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+        },
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        console.log('Comment response:', data);
+        input.value = '';
+        refreshFeed();
+    })
+    .catch(err => {
+        console.error('Comment error:', err);
+    });
 }
 
 function getCookie(name) {

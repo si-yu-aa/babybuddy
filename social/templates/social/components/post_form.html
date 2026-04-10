@@ -1,9 +1,10 @@
 <div class="card mb-3">
     <div class="card-body">
+        <div id="post-error" class="alert alert-danger" style="display: none;"></div>
         <form id="post-form" enctype="multipart/form-data">
             <div class="mb-2">
                 <textarea class="form-control" name="content"
-                          placeholder="What's happening?" rows="2"></textarea>
+                          placeholder="分享新鲜事..." rows="2"></textarea>
             </div>
             <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -17,7 +18,7 @@
                     </label>
                     <span id="selected-media" class="ms-2 text-muted"></span>
                 </div>
-                <button type="submit" class="btn btn-primary btn-sm">Post</button>
+                <button type="submit" class="btn btn-primary btn-sm">发布</button>
             </div>
             <input type="hidden" name="media_type" id="media_type" value="none">
         </form>
@@ -36,22 +37,40 @@ function handleMediaSelect(input, type) {
 
 document.getElementById('post-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const formData = new FormData(this);
+    const form = this;
+    const errorDiv = document.getElementById('post-error');
+    errorDiv.style.display = 'none';
+
+    const formData = new FormData(form);
+
+    console.log('Submitting post...');
 
     fetch('/api/social/posts/', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
         headers: {
             'X-CSRFToken': getCookie('csrftoken'),
         },
     })
-    .then(r => r.json())
-    .then(data => {
-        if (data.id) {
-            this.reset();
-            document.getElementById('selected-media').textContent = '';
-            refreshFeed();
+    .then(response => {
+        console.log('Response status:', response.status);
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
         }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        // DRF returns 201 on success - any 2xx is good
+        form.reset();
+        document.getElementById('selected-media').textContent = '';
+        refreshFeed();
+    })
+    .catch(err => {
+        console.error('Error:', err);
+        errorDiv.textContent = '错误: ' + err.message + ' (请确认已登录)';
+        errorDiv.style.display = 'block';
     });
 });
 

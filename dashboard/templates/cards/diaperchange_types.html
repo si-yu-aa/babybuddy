@@ -1,13 +1,13 @@
 {% extends 'cards/base.html' %}
 {% load i18n %}
 {% block header %}
-    <a href="{% url "core:diaperchange-list" %}">{% trans "Diaper Changes" %}</a>
+    <a href="{% url "core:diaperchange-list" %}">{% trans "尿布更换记录" %}</a>
 {% endblock %}
 {% block title %}
     {% if total == 0 %}
-        {% trans "None" %}
+        {% trans "无" %}
     {% else %}
-        {% trans "Past Week" %}
+        {% trans "过去一周" %}
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -17,13 +17,13 @@
                 {% if info.wet_pct > 0 %}
                     <div class="progress-bar bg-primary lead"
                          style="width: {{ info.wet_pct|safe }}%">
-                        {{ info.wet|floatformat:'0' }}&nbsp;{% trans "wet" %}
+                        {{ info.wet|floatformat:'0' }}&nbsp;{% trans "湿" %}
                     </div>
                 {% endif %}
                 {% if info.solid_pct > 0 %}
                     <div class="progress-bar bg-secondary lead"
                          style="width: {{ info.solid_pct|safe }}%">
-                        {{ info.solid|floatformat:'0' }}&nbsp;{% trans "solid" %}
+                        {{ info.solid|floatformat:'0' }}&nbsp;{% trans "固体" %}
                     </div>
                 {% endif %}
                 {% if info.empty_pct > 0 %}
@@ -33,14 +33,14 @@
             </div>
             <div class="text-center text-light small">
                 {% if key == 0 %}
-                    {% trans "today" %}
+                    {% trans "今天" %}
                 {% elif key == 1 %}
-                    {% trans "yesterday" %}
+                    {% trans "昨天" %}
                 {% else %}
-                    {% blocktrans with days_ago=key %}{{ days_ago }} days ago{% endblocktrans %}
+                    {% blocktrans with days_ago=key %}{{ days_ago }} 天前{% endblocktrans %}
                 {% endif %}
                 {% if info.changes > 0 %}
-                    ({{ info.changes|floatformat:'0' }} {% trans "changes" %})
+                    ({{ info.changes|floatformat:'0' }} {% trans "次" %})
                 {% endif %}
             </div>
         {% endif %}

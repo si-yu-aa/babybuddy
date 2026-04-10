@@ -1,34 +1,34 @@
 {% load i18n %}
 <div class="child-actions btn-group btn-group-lg border rounded border-light bg center-block"
      role="group"
-     aria-label="{% trans "Child actions" %}">
+     aria-label="{% trans "孩子操作" %}">
     {% if perms.core.view_child %}
         <a href="{% url 'dashboard:dashboard-child' object.slug %}"
            class="btn"
-           title="{% trans "Dashboard" %}">
+           title="{% trans "仪表盘" %}">
             <i class="icon-dashboard" aria-hidden="true"></i>
         </a>
         <a href="{% url 'core:child' object.slug %}"
            class="btn"
-           title="{% trans "Timeline" %}">
+           title="{% trans "时间线" %}">
             <i class="icon-timeline" aria-hidden="true"></i>
         </a>
         <a href="{% url 'reports:report-list' object.slug %}"
            class="btn"
-           title="{% trans "Reports" %}">
+           title="{% trans "报告" %}">
             <i class="icon-graph" aria-hidden="true"></i>
         </a>
     {% endif %}
     {% if perms.core.change_child %}
         <a class="btn d-none d-md-inline-block"
            href="{% url 'core:child-update' object.slug %}"
-           title="{% trans "Edit" %}"
+           title="{% trans "编辑" %}"
            role="button"><i class="icon-update" aria-hidden="true"></i></a>
     {% endif %}
     {% if perms.core.delete_child %}
         <a class="btn d-none d-md-inline-block"
            href="{% url 'core:child-delete' object.slug %}"
-           title="{% trans "Delete" %}"
+           title="{% trans "删除" %}"
            role="button"><i class="icon-delete" aria-hidden="true"></i></a>
     {% endif %}
 </div>

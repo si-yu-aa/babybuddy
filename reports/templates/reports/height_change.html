@@ -1,10 +1,10 @@
 {% extends 'reports/report_base.html' %}
 {% load i18n %}
 {% block title %}
-    {% trans "Height" %} - {{ object }}
+    {% trans "身高" %} - {{ object }}
 {% endblock %}
 {% block breadcrumbs %}
     {{ block.super }}
     {% include 'reports/breadcrumb_common_chunk.html' with target_url=target_url %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Height" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "身高" %}</li>
 {% endblock %}

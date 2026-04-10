@@ -1,19 +1,19 @@
 {% extends 'babybuddy/page.html' %}
 {% load babybuddy i18n widget_tweaks %}
 {% block title %}
-    {% trans "Delete a BMI Entry" %}
+    {% trans "删除 BMI 记录" %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
         <a href="{% url 'core:bmi-list' %}">{% trans "BMI" %}</a>
     </li>
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "删除" %}</li>
 {% endblock %}
 {% block content %}
     <form role="form" method="post">
         {% csrf_token %}
         <h1>{% confirm_delete_text object %}</h1>
-        <input type="submit" value="{% trans "Delete" %}" class="btn btn-danger" />
-        <a href="{% url 'core:bmi-list' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+        <input type="submit" value="{% trans "删除" %}" class="btn btn-danger" />
+        <a href="{% url 'core:bmi-list' %}" class="btn btn-default">{% trans "取消" %}</a>
     </form>
 {% endblock %}

@@ -4,7 +4,7 @@
     {% if object %}
         {{ object }}
     {% else %}
-        {% trans "Add a BMI Entry" %}
+        {% trans "添加 BMI 记录" %}
     {% endif %}
 {% endblock %}
 {% block breadcrumbs %}
@@ -12,18 +12,18 @@
         <a href="{% url 'core:bmi-list' %}">{% trans "BMI" %}</a>
     </li>
     {% if object %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "更新" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Add a BMI Entry" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "添加 BMI 记录" %}</li>
     {% endif %}
 {% endblock %}
 {% block content %}
     {% if object %}
         <h1>
-            {% trans Update %} <span class="text-info">{{ object }}</span>
+            {% trans "更新" %} <span class="text-info">{{ object }}</span>
         </h1>
     {% else %}
-        <h1>{% trans "Add a BMI Entry" %}</h1>
+        <h1>{% trans "添加 BMI 记录" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

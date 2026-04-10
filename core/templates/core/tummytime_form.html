@@ -2,28 +2,28 @@
 {% load datetime i18n %}
 {% block title %}
     {% if request.resolver_match.url_name == 'tummytime-update' %}
-        {% trans "Update a Tummy Time Entry" %}
+        {% trans "编辑趴趴时间记录" %}
     {% else %}
-        {% trans "Add a Tummy Time Entry" %}
+        {% trans "添加趴趴时间记录" %}
     {% endif %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:tummytime-list' %}">{% trans "Tummy Time" %}</a>
+        <a href="{% url 'core:tummytime-list' %}">{% trans "趴趴时间" %}</a>
     </li>
     {% if object %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "编辑" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "添加" %}</li>
     {% endif %}
 {% endblock %}
 {% block content %}
     {% if object %}
         <h1>
-            {% trans Update %} <span class="text-info">{{ object }}</span>
+            {% trans "编辑" %} <span class="text-info">{{ object }}</span>
         </h1>
     {% else %}
-        <h1>{% trans "Add a Tummy Time Entry" %}</h1>
+        <h1>{% trans "添加趴趴时间记录" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

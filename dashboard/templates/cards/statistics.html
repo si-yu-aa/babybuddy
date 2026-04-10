@@ -3,7 +3,7 @@
     <div class="card card-dashboard card-statistics">
         <div class="card-header">
             <i class="icon-graph pull-left" aria-hidden="true"></i>
-            {% trans "Statistics" %}
+            {% trans "统计" %}
         </div>
         <div class="card-body text-center">
             {% if stats|length > 0 %}
@@ -23,7 +23,7 @@
                                             {{ stat.stat }}
                                         {% endif %}
                                     {% else %}
-                                        <em>{% trans "Not enough data" %}</em>
+                                        <em>{% trans "数据不足" %}</em>
                                     {% endif %}
                                 </span>
                                 <div class="card-text">{{ stat.title }}</div>
@@ -35,18 +35,18 @@
                        role="button"
                        data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">{% trans "Previous" %}</span>
+                        <span class="visually-hidden">{% trans "上一个" %}</span>
                     </a>
                     <a class="carousel-control-next"
                        href="#statistics-carousel"
                        role="button"
                        data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">{% trans "Next" %}</span>
+                        <span class="visually-hidden">{% trans "下一个" %}</span>
                     </a>
                 </div>
             {% else %}
-                <span class="card-title"><strong>{% trans "No data yet" %}</strong></span>
+                <span class="card-title"><strong>{% trans "暂无数据" %}</strong></span>
             {% endif %}
         </div>
     </div>

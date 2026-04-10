@@ -4,29 +4,29 @@
     {% if object %}
         {{ object }}
     {% else %}
-        {% trans "Add a Child" %}
+        {% trans "添加孩子" %}
     {% endif %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:child-list' %}">{% trans "Children" %}</a>
+        <a href="{% url 'core:child-list' %}">{% trans "孩子们" %}</a>
     </li>
     {% if object %}
         <li class="breadcrumb-item fw-bold">
             <a href="{% url 'core:child' object.slug %}">{{ object }}</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "更新" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Add a Child" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "添加孩子" %}</li>
     {% endif %}
 {% endblock %}
 {% block content %}
     {% if object %}
         <h1>
-            {% trans Update %} <span class="text-info">{{ object }}</span>
+            {% trans "更新" %} <span class="text-info">{{ object }}</span>
         </h1>
     {% else %}
-        <h1>{% trans "Add a Child" %}</h1>
+        <h1>{% trans "添加孩子" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends 'babybuddy/page.html' %}
 {% load babybuddy bootstrap i18n widget_tweaks %}
 {% block title %}
-    {% trans "Users" %}
+    {% trans "用户" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Users" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "用户" %}</li>
 {% endblock %}
 {% block content %}
     <h1>Users</h1>
@@ -13,15 +13,15 @@
         <table class="table table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "User" %}</th>
-                    <th>{% trans "First Name" %}</th>
-                    <th>{% trans "Last Name" %}</th>
-                    <th>{% trans "Email" %}</th>
-                    <th class="text-center">{% trans "Read only" %}</th>
-                    <th class="text-center">{% trans "Staff" %}</th>
-                    <th class="text-center">{% trans "Active" %}</th>
-                    <th class="text-center">{% trans "Locked" %}</th>
-                    <th class="text-center">{% trans "Actions" %}</th>
+                    <th>{% trans "用户" %}</th>
+                    <th>{% trans "名" %}</th>
+                    <th>{% trans "姓" %}</th>
+                    <th>{% trans "邮箱" %}</th>
+                    <th class="text-center">{% trans "只读" %}</th>
+                    <th class="text-center">{% trans "员工" %}</th>
+                    <th class="text-center">{% trans "激活" %}</th>
+                    <th class="text-center">{% trans "锁定" %}</th>
+                    <th class="text-center">{% trans "操作" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,7 +56,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="4">{% trans "No users found." %}</th>
+                        <th colspan="4">{% trans "未找到用户" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -65,7 +65,7 @@
     {% include 'babybuddy/paginator.html' %}
     {% if perms.admin.add_user %}
         <a href="{% url 'babybuddy:user-add' %}" class="btn btn-sm btn-success">
-            <i class="icon-add" aria-hidden="true"></i> {% trans "Create User" %}
+            <i class="icon-add" aria-hidden="true"></i> {% trans "创建用户" %}
         </a>
     {% endif %}
 {% endblock %}

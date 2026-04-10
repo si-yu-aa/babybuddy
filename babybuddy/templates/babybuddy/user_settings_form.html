@@ -1,30 +1,30 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks babybuddy %}
 {% block title %}
-    {% trans "User Settings" %}
+    {% trans "用户设置" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item">{% trans "User" %}</li>
-    <li class="breadcrumb-item active">{% trans "Settings" %}</li>
+    <li class="breadcrumb-item">{% trans "用户" %}</li>
+    <li class="breadcrumb-item active">{% trans "设置" %}</li>
 {% endblock %}
 {% block content %}
-    <h1>{% trans "User Settings" %}</h1>
+    <h1>{% trans "用户设置" %}</h1>
     <div class="container-fluid">
         <form role="form" method="post">
             {% csrf_token %}
             {% if form.non_field_errors %}
                 {% for error in form.non_field_errors %}
                     <div class="alert alert-danger" role="alert">
-                        <strong>{% trans "Error" %}</strong>: {{ error }}
+                        <strong>{% trans "错误" %}</strong>: {{ error }}
                     </div>
                 {% endfor %}
             {% elif form.errors %}
                 <div class="alert alert-danger" role="alert">
-                    <strong>{% trans "Error" %}</strong>: {% trans "Some fields have errors. See below for details." %}
+                    <strong>{% trans "错误" %}</strong>: {% trans "某些字段有错误，请查看下方详情" %}
                 </div>
             {% endif %}
             <fieldset>
-                <legend>{% trans "User Profile" %}</legend>
+                <legend>{% trans "用户资料" %}</legend>
                 <div class="form-group row">
                     {% with form_user.first_name as field %}
                         {% include 'babybuddy/form_field.html' %}
@@ -57,7 +57,7 @@
                 </div>
             </fieldset>
             <fieldset>
-                <legend>{% trans "Dashboard" %}</legend>
+                <legend>{% trans "仪表盘" %}</legend>
                 <div class="form-group row">
                     {% with form_settings.dashboard_refresh_rate as field %}
                         {% include 'babybuddy/form_field.html' %}
@@ -77,12 +77,12 @@
             <fieldset>
                 <legend>{% trans "API" %}</legend>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">{% trans "Key" %}</label>
+                    <label class="col-sm-2 col-form-label">{% trans "密钥" %}</label>
                     <div class="col-sm-10">
                         <samp>{{ user.settings.api_key }}</samp>
                         <input type="submit"
                                name="api_key_regenerate"
-                               value="{% trans "Regenerate" %}"
+                               value="{% trans "重新生成" %}"
                                class="btn btn-danger btn-xs" />
                     </div>
                 </div>
@@ -90,7 +90,7 @@
             <input type="hidden" name="next" value="{% url 'babybuddy:user-settings' %}" />
             <input type="submit"
                    name="save_settings"
-                   value="{% trans "Submit" %}"
+                   value="{% trans "提交" %}"
                    class="btn btn-primary">
         </form>
     </div>

@@ -24,16 +24,16 @@
                    type="text"
                    name=""
                    list="tag-list"
-                   placeholder="{% trans "Tag name" %}">
+                   placeholder="{% trans "标签名称" %}">
             {% if widget.tag_suggestions.most %}
                 <datalist id="tag-list">
                     {% for t in widget.tag_suggestions.most %}<option value="{{ t.name }}" />{% endfor %}
                 </datalist>
             {% endif %}
-            <button id="add-tag" class="btn btn-outline-primary bg" type="button">{% trans "Add" %}</button>
+            <button id="add-tag" class="btn btn-outline-primary bg" type="button">{% trans "添加" %}</button>
         </div>
         {% if widget.tag_suggestions.quick %}
-            <span>{% trans "Recently used:" %}</span>
+            <span>{% trans "最近使用：" %}</span>
             {% for t in widget.tag_suggestions.quick %}
                 <span data-value="{{ t.name }}"
                       data-color="{{ t.color }}"
@@ -52,17 +52,17 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">{% trans "Error" context "Error modal" %}</h4>
+                    <h4 class="modal-title">{% trans "错误" context "Error modal" %}</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <span data-message="generic">{% trans "An error ocurred." context "Error modal" %}</span>
-                    <span data-message="invalid-tag-name">{% trans "Invalid tag name." context "Error modal" %}</span>
-                    <span data-message="tag-creation-failed">{% trans "Failed to create tag." context "Error modal" %}</span>
-                    <span data-message="tag-checking-failed">{% trans "Failed to obtain tag data." context "Error modal" %}</span>
+                    <span data-message="generic">{% trans "发生错误。" context "Error modal" %}</span>
+                    <span data-message="invalid-tag-name">{% trans "无效的标签名称。" context "Error modal" %}</span>
+                    <span data-message="tag-creation-failed">{% trans "创建标签失败。" context "Error modal" %}</span>
+                    <span data-message="tag-checking-failed">{% trans "获取标签数据失败。" context "Error modal" %}</span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{% trans "Close" context "Error modal" %}</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{% trans "关闭" context "Error modal" %}</button>
                 </div>
             </div>
         </div>

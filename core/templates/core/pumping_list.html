@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime duration misc i18n widget_tweaks %}
 {% block title %}
-    {% trans "Pumping" %}
+    {% trans "吸奶" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Pumping" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "吸奶" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Pumping" %}
+        {% trans "吸奶" %}
         {% if perms.core.add_pumping %}
             <a href="{% url 'core:pumping-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-pumping" aria-hidden="true"></i> {% trans "Add Pumping Entry" %}
+                <i class="icon-pumping" aria-hidden="true"></i> {% trans "添加吸奶" %}
             </a>
         {% endif %}
     </h1>
@@ -20,15 +20,15 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "日期" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Amount" %}</th>
-                    <th>{% trans "Duration" %}</th>
-                    <th>{% trans "Previous" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "用量" %}</th>
+                    <th>{% trans "持续时间" %}</th>
+                    <th>{% trans "上次" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                             <td>
                                 <div class="btn-group btn-group-sm"
                                      role="group"
-                                     aria-label="{% trans "Actions" %}">
+                                     aria-label="{% trans "操作" %}">
                                     {% if perms.core.change_pumping %}
                                         <a href="{% url 'core:pumping-update' pumping.id %}"
                                            class="btn btn-primary">
@@ -80,7 +80,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="6">{% trans "No pumping entries found." %}</th>
+                        <th colspan="6">{% trans "未找到吸奶记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

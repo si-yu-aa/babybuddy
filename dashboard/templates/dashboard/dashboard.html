@@ -1,10 +1,10 @@
 {% extends 'babybuddy/page.html' %}
 {% load cards i18n imagekit static %}
 {% block title %}
-    {% trans "Dashboard" %}
+    {% trans "仪表盘" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item fw-bold">{% trans "Dashboard" %}</li>
+    <li class="breadcrumb-item fw-bold">{% trans "仪表盘" %}</li>
 {% endblock %}
 {% block content %}
     <div class="row">
@@ -27,9 +27,9 @@
                                     <h4 class="card-title">{{ object }}</h4>
                                     <div class="card-text">
                                         <p>
-                                            {% trans "Born" %} <span class="text-secondary">{{ object.birth_date }}</span>
+                                            {% trans "出生日期" %} <span class="text-secondary">{{ object.birth_date }}</span>
                                             <br />
-                                            {% trans "Age" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
+                                            {% trans "年龄" %} <span class="text-secondary">{{ object.birth_date|timesince }}</span>
                                         </p>
                                         {% include 'dashboard/child_button_group.html' %}
                                     </div>

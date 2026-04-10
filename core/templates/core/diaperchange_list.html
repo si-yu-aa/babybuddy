@@ -1,18 +1,18 @@
 {% extends 'babybuddy/page.html' %}
 {% load bootstrap datetime misc i18n widget_tweaks %}
 {% block title %}
-    {% trans "Diaper Changes" %}
+    {% trans "尿布记录" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Diaper Changes" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "尿布记录" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Diaper Changes" %}
+        {% trans "尿布记录" %}
         {% if perms.core.add_diaperchange %}
             <a href="{% url 'core:diaperchange-add' %}"
                class="btn btn-sm btn-success">
-                <i class="icon-diaperchange" aria-hidden="true"></i> {% trans "Add Diaper Change" %}
+                <i class="icon-diaperchange" aria-hidden="true"></i> {% trans "添加尿布更换" %}
             </a>
         {% endif %}
     </h1>
@@ -21,16 +21,16 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Time" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "时间" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th class="text-center">{% trans "Contents" %}</th>
-                    <th>{% trans "Color" %}</th>
-                    <th>{% trans "Amount" %}</th>
-                    <th>{% trans "Previous" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th class="text-center">{% trans "内容" %}</th>
+                    <th>{% trans "颜色" %}</th>
+                    <th>{% trans "用量" %}</th>
+                    <th>{% trans "上次" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                             <td>
                                 <div class="btn-group btn-group-sm"
                                      role="group"
-                                     aria-label="{% trans "Actions" %}">
+                                     aria-label="{% trans "操作" %}">
                                     {% if perms.core.change_diaperchange %}
                                         <a href="{% url 'core:diaperchange-update' change.id %}"
                                            class="btn btn-primary">
@@ -63,10 +63,10 @@
                             {% endif %}
                             <td class="text-center">
                                 {% if change.wet %}
-                                    <span title="{% trans "Wet" %}">💦</span>
+                                    <span title="{% trans "湿" %}">💦</span>
                                 {% endif %}
                                 {% if change.solid %}
-                                    <span title="{% trans "Solid" %}">💩</span>
+                                    <span title="{% trans "固态" %}">💩</span>
                                 {% endif %}
                             </td>
                             <td>{{ change.get_color_display }}</td>
@@ -90,7 +90,7 @@
                     {% endwith %}
                 {% empty %}
                     <tr>
-                        <th colspan="8">{% trans "No diaper changes found." %}</th>
+                        <th colspan="8">{% trans "未找到尿布更换记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

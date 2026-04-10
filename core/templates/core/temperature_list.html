@@ -1,18 +1,18 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime i18n widget_tweaks %}
 {% block title %}
-    {% trans "Temperature" %}
+    {% trans "体温" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Temperature" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "体温" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Temperature" %}
+        {% trans "体温" %}
         {% if perms.core.add_temperature %}
             <a href="{% url 'core:temperature-add' %}"
                class="btn btn-sm btn-success">
-                <i class="icon-temperature" aria-hidden="true"></i> {% trans "Add Temperature Reading" %}
+                <i class="icon-temperature" aria-hidden="true"></i> {% trans "添加体温" %}
             </a>
         {% endif %}
     </h1>
@@ -21,13 +21,13 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Time" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "时间" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Temperature" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "体温" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                         <td>
                             <div class="btn-group btn-group-sm"
                                  role="group"
-                                 aria-label="{% trans "Actions" %}">
+                                 aria-label="{% trans "操作" %}">
                                 {% if perms.core.change_temperature %}
                                     <a href="{% url 'core:temperature-update' temperature.id %}"
                                        class="btn btn-primary">
@@ -69,7 +69,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No temperature entries found." %}</th>
+                        <th colspan="5">{% trans "未找到体温记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,14 +1,14 @@
 {% extends 'babybuddy/page.html' %}
 {% load breadcrumb cards i18n %}
 {% block title %}
-    {% trans "Dashboard" %} - {{ object }}
+    {% trans "仪表盘" %} - {{ object }}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:child-list' %}">{% trans "Children" %}</a>
+        <a href="{% url 'core:child-list' %}">{% trans "孩子们" %}</a>
     </li>
     <li class="breadcrumb-item fw-bold">{% child_quick_switch object 'dashboard:dashboard-child' %}</li>
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Dashboard" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "仪表盘" %}</li>
 {% endblock %}
 {% block content %}
     <div id="dashboard-child"

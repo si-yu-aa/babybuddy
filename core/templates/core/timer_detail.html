@@ -4,7 +4,7 @@
 {% block title %}{{ object }}{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:timer-list' %}">{% trans "Timers" %}</a>
+        <a href="{% url 'core:timer-list' %}">{% trans "计时器" %}</a>
     </li>
     <li class="breadcrumb-item fw-bold">{{ object }}</li>
 {% endblock %}
@@ -17,10 +17,10 @@
                 <span class="timer-seconds">{{ object.duration|seconds }}</span>s
             </h1>
             {% if timer.child and CHILD_COUNT > 1 %}<h2 class="text-body-secondary">{{ timer.child }}</h2>{% endif %}
-            <p class="lead text-secondary">{% trans "Started" %} {{ object.start }}</p>
+            <p class="lead text-secondary">{% trans "开始" %} {{ object.start }}</p>
             <p class="text-body-secondary">
                 {% blocktrans trimmed with user=object.user_username %}
-                    {{ timer }} created by {{ user }}
+                    {{ timer }} 由 {{ user }} 创建
                 {% endblocktrans %}
             </p>
             <div class="d-grid gap-4 mb-4">
@@ -28,34 +28,34 @@
                 <a class="btn btn-success btn-lg"
                    href="{% instance_add_url 'core:feeding-add' %}"
                    role="button"><i class="icon-feeding" aria-hidden="true"></i>
-                {% trans "Feeding" %}
+                {% trans "喂养" %}
             </a>
         {% endif %}
         {% if perms.core.add_pumping %}
         <a class="btn btn-success btn-lg"
            href="{% instance_add_url 'core:pumping-add' %}"
            role="button"><i class="icon-pumping" aria-hidden="true"></i>
-        {% trans "Pumping" %}
+        {% trans "泵奶" %}
     </a>
 {% endif %}
 {% if perms.core.add_sleep %}
 <a class="btn btn-success btn-lg"
    href="{% instance_add_url 'core:sleep-add' %}"
    role="button"><i class="icon-sleep" aria-hidden="true"></i>
-{% trans "Sleep" %}
+{% trans "睡眠" %}
 </a>
 {% endif %}
 {% if perms.core.add_tummytime %}
 <a class="btn btn-success btn-lg"
    href="{% instance_add_url 'core:tummytime-add' %}"
    role="button"><i class="icon-tummytime" aria-hidden="true"></i>
-{% trans "Tummy Time" %}
+{% trans "趴卧时间" %}
 </a>
 {% endif %}
 </div>
 <div class="center-block"
      role="group"
-     aria-label="{% trans "Timer actions" %}">
+     aria-label="{% trans "计时器操作" %}">
     {% if perms.core.delete_timer %}
         <a class="btn btn-lg btn-danger"
            href="{% url 'core:timer-delete' timer.id %}"
@@ -70,7 +70,7 @@
               method="post"
               class="d-inline">
             {% csrf_token %}
-            <label class="visually-hidden">{% trans "Restart timer" %}</label>
+            <label class="visually-hidden">{% trans "重启计时器" %}</label>
             <button type="submit" class="btn btn-lg btn-secondary">
                 <i class="icon-refresh" aria-hidden="true"></i>
             </button>

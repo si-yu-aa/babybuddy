@@ -1,17 +1,17 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 {% block header %}
-    <a href="{% url "core:sleep-list" %}">{% trans "Today's Naps" %}</a>
+    <a href="{% url "core:sleep-list" %}">{% trans "今日小睡" %}</a>
 {% endblock %}
 {% block title %}
     {% if count %}
         {% blocktrans trimmed count counter=count %}
-            {{ count }} nap
+            {{ counter }} 次小睡
         {% plural %}
-            {{ count }} naps
+            {{ counter }} 次小睡
         {% endblocktrans %}
     {% else %}
-        {% trans "None" %}
+        {% trans "无" %}
     {% endif %}
 {% endblock %}
 {% block content %}

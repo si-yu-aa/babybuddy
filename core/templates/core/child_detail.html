@@ -3,7 +3,7 @@
 {% block title %}{{ object }}{% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:child-list' %}">{% trans "Children" %}</a>
+        <a href="{% url 'core:child-list' %}">{% trans "孩子们" %}</a>
     </li>
     <li class="breadcrumb-item fw-bold">{% child_quick_switch object 'core:child' %}</li>
 {% endblock %}
@@ -20,9 +20,9 @@
                     {% endif %}
                     <div class="child-name display-4">{{ object }}</div>
                     <p class="lead">
-                        {% trans "Born" %} <span class="text-secondary">{{ object.birth_datetime }}</span>
+                        {% trans "出生" %} <span class="text-secondary">{{ object.birth_datetime }}</span>
                         <br />
-                        {% trans "Age" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
+                        {% trans "年龄" %} <span class="text-secondary">{{ object.birth_datetime|child_age_string }}</span>
                     </p>
                     {% include 'dashboard/child_button_group.html' %}
                 </div>

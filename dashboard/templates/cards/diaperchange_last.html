@@ -1,18 +1,18 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 {% block header %}
-    <a href="{% url "core:diaperchange-list" %}">{% trans "Last Diaper Change" %}</a>
+    <a href="{% url "core:diaperchange-list" %}">{% trans "上次尿布更换" %}</a>
 {% endblock %}
 {% block title %}
     {% if change %}
         <div>
             {% blocktrans trimmed with time_ago=change.time|deltasince|duration_string:'m' %}
-                {{ time_ago }} ago
+                {{ time_ago }}前
             {% endblocktrans %}
         </div>
         <small>{{ change.time|time }}</small>
     {% else %}
-        {% trans "None" %}
+        {% trans "无" %}
     {% endif %}
 {% endblock %}
 {% block content %}

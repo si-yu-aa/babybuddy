@@ -23,6 +23,8 @@ class PostSerializer(serializers.ModelSerializer):
     media_url = serializers.SerializerMethodField()
     video_url = serializers.SerializerMethodField()
     is_liked_by_me = serializers.SerializerMethodField()
+    liked_by = serializers.SerializerMethodField()
+    comments = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -36,6 +38,8 @@ class PostSerializer(serializers.ModelSerializer):
             "like_count",
             "comment_count",
             "is_liked_by_me",
+            "liked_by",
+            "comments",
             "created_at",
         ]
         read_only_fields = ["id", "author", "created_at"]
@@ -45,6 +49,14 @@ class PostSerializer(serializers.ModelSerializer):
         if request and request.user.is_authenticated:
             return obj.likes.filter(user=request.user).exists()
         return False
+
+    def get_liked_by(self, obj):
+        likes = obj.likes.all().select_related('user')[:10]  # Limit to 10 most recent
+        return [{'id': like.user.id, 'username': like.user.username, 'display_name': like.user.get_full_name() or like.user.username} for like in likes]
+
+    def get_comments(self, obj):
+        comments = obj.comments.all().select_related('author')[:20]
+        return [{'id': c.id, 'author': {'id': c.author.id, 'username': c.author.username, 'display_name': c.author.get_full_name() or c.author.username}, 'content': c.content, 'created_at': c.created_at.isoformat()} for c in comments]
 
     def get_media_url(self, obj):
         if obj.media:

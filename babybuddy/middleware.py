@@ -30,9 +30,8 @@ class UserLanguageMiddleware:
         user = request.user
         if hasattr(user, "settings") and user.settings.language:
             language = user.settings.language
-        elif request.LANGUAGE_CODE:
-            language = request.LANGUAGE_CODE
         else:
+            # Force default language (Chinese), ignore browser Accept-Language header
             language = settings.LANGUAGE_CODE
 
         if language:

@@ -1,14 +1,13 @@
 {% extends 'error/base.html' %}
 {% load i18n %}
 {% block title %}
-    403 {% trans "Permission Denied" %}
+    403 {% trans "禁止访问" %}
 {% endblock %}
 {% block content %}
-    <h1>403 {% trans "Permission Denied" %}</h1>
+    <h1>403 {% trans "禁止访问" %}</h1>
     <div class="alert alert-danger" role="alert">
         {% blocktrans trimmed %}
-            You do not have permission to access this resource. Contact a site
-            administrator for assistance.
+            你没有权限访问此资源。请联系网站管理员以获取帮助。
         {% endblocktrans %}
     </div>
 {% endblock %}

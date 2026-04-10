@@ -8,14 +8,14 @@
                        href="{% relative_url 'page' 1 %}"
                        aria-label="First">
                         <i class="icon-angle-double-left" aria-hidden="true"></i>
-                        <span class="visually-hidden">{% trans "First" %}</span>
+                        <span class="visually-hidden">{% trans "第一页" %}</span>
                     </a>
                     <li class="page-item">
                         <a class="page-link page-link-icon"
                            href="{% relative_url 'page' page_obj.previous_page_number %}"
                            aria-label="Previous">
                             <i class="icon-angle-left" aria-hidden="true"></i>
-                            <span class="visually-hidden">{% trans "Previous" %}</span>
+                            <span class="visually-hidden">{% trans "上一页" %}</span>
                         </a>
                     </li>
                 {% endif %}
@@ -32,7 +32,7 @@
                            href="{% relative_url 'page' page_obj.next_page_number %}"
                            aria-label="Next">
                             <i class="icon-angle-right" aria-hidden="true"></i>
-                            <span class="visually-hidden">{% trans "Next" %}</span>
+                            <span class="visually-hidden">{% trans "下一页" %}</span>
                         </a>
                     </li>
                     <li class="page-item">
@@ -40,7 +40,7 @@
                            href="{% relative_url 'page' page_obj.paginator.num_pages %}"
                            aria-label="Last">
                             <i class="icon-angle-double-right" aria-hidden="true"></i>
-                            <span class="visually-hidden">{% trans "Last" %}</span>
+                            <span class="visually-hidden">{% trans "最后一页" %}</span>
                         </a>
                     </li>
                 {% endif %}

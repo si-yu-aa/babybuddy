@@ -1,18 +1,18 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
 {% block title %}
-    {% trans "Head Circumference" %}
+    {% trans "头围" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Head Circumference" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "头围" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Head Circumference" %}
+        {% trans "头围" %}
         {% if perms.core.add_head_circumference %}
             <a href="{% url 'core:head-circumference-add' %}"
                class="btn btn-sm btn-success">
-                <i class="icon-head-circumference" aria-hidden="true"></i> {% trans "Add Head Circumference" %}
+                <i class="icon-head-circumference" aria-hidden="true"></i> {% trans "添加头围" %}
             </a>
         {% endif %}
     </h1>
@@ -21,13 +21,13 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "日期" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Head Circumference" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "头围" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                         <td>
                             <div class="btn-group btn-group-sm"
                                  role="group"
-                                 aria-label="{% trans "Actions" %}">
+                                 aria-label="{% trans "操作" %}">
                                 {% if perms.core.change_head_circumference %}
                                     <a href="{% url 'core:head-circumference-update' head_circumference.id %}"
                                        class="btn btn-primary">
@@ -69,7 +69,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No head circumference entries found." %}</th>
+                        <th colspan="5">{% trans "未找到头围记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

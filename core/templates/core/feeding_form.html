@@ -2,32 +2,32 @@
 {% load datetime i18n %}
 {% block title %}
     {% if request.resolver_match.url_name == 'feeding-update' %}
-        {% trans "Update a Feeding" %}
+        {% trans "编辑喂养" %}
     {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
-        {% trans "Add a Bottle Feeding" %}
+        {% trans "添加奶瓶喂养" %}
     {% else %}
-        {% trans "Add a Feeding" %}
+        {% trans "添加喂养" %}
     {% endif %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:feeding-list' %}">{% trans "Feedings" %}</a>
+        <a href="{% url 'core:feeding-list' %}">{% trans "喂养记录" %}</a>
     </li>
     {% if object %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "编辑" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Add" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "添加" %}</li>
     {% endif %}
 {% endblock %}
 {% block content %}
     {% if object %}
         <h1>
-            {% trans Update %} <span class="text-info">{{ object }}</span>
+            {% trans "编辑" %} <span class="text-info">{{ object }}</span>
         </h1>
     {% elif request.resolver_match.url_name == 'bottle-feeding-add' %}
-        <h1>{% trans "Add a Bottle Feeding" %}</h1>
+        <h1>{% trans "添加奶瓶喂养" %}</h1>
     {% else %}
-        <h1>{% trans "Add a Feeding" %}</h1>
+        <h1>{% trans "添加喂养" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

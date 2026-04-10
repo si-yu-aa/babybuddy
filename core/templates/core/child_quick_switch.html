@@ -6,7 +6,7 @@
        data-bs-toggle="dropdown"
        aria-haspopup="true"
        aria-expanded="false">
-        <span class="visually-hidden">{% trans 'Switch child' %}</span>
+        <span class="visually-hidden">{% trans '切换孩子' %}</span>
         <svg xmlns="http://www.w3.org/2000/svg"
              width="16"
              height="16"
@@ -18,7 +18,7 @@
         </svg>
     </a>
     <div class="dropdown-menu dropdown-menu-start">
-        <h6 class="dropdown-header">{% trans "Switch to…" %}</h6>
+        <h6 class="dropdown-header">{% trans "切换到..." %}</h6>
         {% for child in children %}
             <a class="dropdown-item d-flex align-items-center"
                href="{% url target_url child.slug %}">

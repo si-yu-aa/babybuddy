@@ -4,18 +4,18 @@
     {% if object %}
         {{ object }}
     {% else %}
-        {% trans "Create User" %}
+        {% trans "创建用户" %}
     {% endif %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'babybuddy:user-list' %}">{% trans "Users" %}</a>
+        <a href="{% url 'babybuddy:user-list' %}">{% trans "用户列表" %}</a>
     </li>
     {% if object %}
         <li class="breadcrumb-item fw-bold">{{ object }}</li>
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "更新" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Create User" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "创建用户" %}</li>
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -23,16 +23,16 @@
         {% user_is_locked object as is_locked %}
         {% if is_locked %}
             <div class="alert alert-danger">
-                <div class="alert-heading h4">{% trans "User locked." %}</div>
+                <div class="alert-heading h4">{% trans "用户已锁定" %}</div>
                 <a href="{% url 'babybuddy:user-unlock' object.id %}"
-                   class="btn btn-danger">{% trans "Unlock" %}</a>
+                   class="btn btn-danger">{% trans "解锁" %}</a>
             </div>
         {% endif %}
         <h1>
-            {% trans "Update" %} <span class="text-info">{{ object }}</span>
+            {% trans "更新" %} <span class="text-info">{{ object }}</span>
         </h1>
     {% else %}
-        <h1>{% trans "Create User" %}</h1>
+        <h1>{% trans "创建用户" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

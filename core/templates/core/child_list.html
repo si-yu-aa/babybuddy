@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n imagekit static widget_tweaks %}
 {% block title %}
-    {% trans "Children" %}
+    {% trans "孩子们" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Children" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "孩子们" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Children" %}
+        {% trans "孩子们" %}
         {% if perms.core.add_child %}
             <a href="{% url 'core:child-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-child" aria-hidden="true"></i> {% trans "Add Child" %}
+                <i class="icon-child" aria-hidden="true"></i> {% trans "添加孩子" %}
             </a>
         {% endif %}
     </h1>
@@ -23,10 +23,10 @@
                     <th>
                         <i class="icon-camera" aria-hidden="true"></i>
                     </th>
-                    <th>{% trans "First Name" %}</th>
-                    <th>{% trans "Last Name" %}</th>
-                    <th>{% trans "Birth Date" %}</th>
-                    <th class="text-center">{% trans "Actions" %}</th>
+                    <th>{% trans "名" %}</th>
+                    <th>{% trans "姓" %}</th>
+                    <th>{% trans "出生日期" %}</th>
+                    <th class="text-center">{% trans "操作" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
                         <td class="text-center">
                             <div class="btn-group btn-group-sm"
                                  role="group"
-                                 aria-label="{% trans "Actions" %}">
+                                 aria-label="{% trans "操作" %}">
                                 {% if perms.core.change_child %}
                                     <a href="{% url 'core:child-update' child.slug %}"
                                        class="btn btn-warning">
@@ -68,7 +68,7 @@
                     </tr>
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No children found." %}</th>
+                        <th colspan="5">{% trans "未找到孩子。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

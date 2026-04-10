@@ -8,10 +8,10 @@
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Height" %}
+        {% trans "身高" %}
         {% if perms.core.add_height %}
             <a href="{% url 'core:height-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-height" aria-hidden="true"></i> {% trans "Add Height" %}
+                <i class="icon-height" aria-hidden="true"></i> {% trans "添加身高" %}
             </a>
         {% endif %}
     </h1>
@@ -20,13 +20,13 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "日期" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Height" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "身高" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,7 +35,7 @@
                         <td>
                             <div class="btn-group btn-group-sm"
                                  role="group"
-                                 aria-label="{% trans "Actions" %}">
+                                 aria-label="{% trans "操作" %}">
                                 {% if perms.core.change_height %}
                                     <a href="{% url 'core:height-update' height.id %}"
                                        class="btn btn-primary">
@@ -68,7 +68,7 @@
                     {% endif %}
                 {% empty %}
                     <tr>
-                        <th colspan="5">{% trans "No height entries found." %}</th>
+                        <th colspan="5">{% trans "未找到身高记录。" %}</th>
                     </tr>
                 {% endfor %}
             </tbody>

@@ -1,7 +1,7 @@
 {% extends 'cards/base.html' %}
 {% load i18n %}
 {% block header %}
-    <a href="{% url "core:feeding-list" %}">{% trans "Last Feeding Method" %}</a>
+    <a href="{% url "core:feeding-list" %}">{% trans "上次喂养方式" %}</a>
 {% endblock %}
 {% block title %}
     {% if feedings|length > 0 %}
@@ -14,12 +14,12 @@
                         <div class="last-feeding-method text-center">{{ feeding.get_method_display }}</div>
                         <div class="text-center small text-body-secondary">
                             {% if forloop.last %}
-                                {% trans "most recent" %}
+                                {% trans "最近一次" %}
                             {% else %}
                                 {% blocktrans trimmed with n=forloop.revcounter0 count counter=n %}
-                                    {{ n }} feeding ago
+                                    {{ n }} 次喂养前
                                 {% plural %}
-                                    {{ n }} feedings ago
+                                    {{ n }} 次喂养前
                                 {% endblocktrans %}
                             {% endif %}
                         </div>
@@ -32,18 +32,18 @@
                    role="button"
                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">{% trans "Previous" %}</span>
+                    <span class="visually-hidden">{% trans "上一个" %}</span>
                 </a>
                 <a class="carousel-control-next"
                    href="#feeding-methods-carousel"
                    role="button"
                    data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">{% trans "Next" %}</span>
+                    <span class="visually-hidden">{% trans "下一个" %}</span>
                 </a>
             {% endif %}
         </div>
     {% else %}
-        {% trans "None" %}
+        {% trans "无" %}
     {% endif %}
 {% endblock %}

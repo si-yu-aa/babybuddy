@@ -1,10 +1,10 @@
 {% extends 'reports/report_base.html' %}
 {% load i18n %}
 {% block title %}
-    {% trans "Diaper Change Types" %} - {{ object }}
+    {% trans "尿布更换类型" %} - {{ object }}
 {% endblock %}
 {% block breadcrumbs %}
     {{ block.super }}
     {% include 'reports/breadcrumb_common_chunk.html' with target_url='reports:report-diaperchange-types-child' %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Diaper Change Types" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "尿布更换类型" %}</li>
 {% endblock %}

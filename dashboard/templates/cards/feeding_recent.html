@@ -1,7 +1,7 @@
 {% extends 'cards/base.html' %}
 {% load duration i18n %}
 {% block header %}
-    <a href="{% url "core:feeding-list" %}">{% trans "Recent Feedings" %}</a>
+    <a href="{% url "core:feeding-list" %}">{% trans "最近喂养" %}</a>
 {% endblock %}
 {% block title %}
     {% if feedings|length > 0 %}
@@ -15,15 +15,15 @@
                             {% if feeding.total %}
                                 {{ feeding.total|floatformat }}
                             {% else %}
-                                {% trans "None" %}
+                                {% trans "无" %}
                             {% endif %}
                         </div>
                         <div class="text-center small">
                             {% if feeding.count > 0 %}
                                 {% blocktrans trimmed count counter=feeding.count %}
-                                    {{ counter }} feeding
+                                    {{ counter }} 次喂养
                                 {% plural %}
-                                    {{ counter }} feedings
+                                    {{ counter }} 次喂养
                                 {% endblocktrans %}
                             {% endif %}
                         </div>
@@ -37,18 +37,18 @@
                    role="button"
                    data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">{% trans "Previous" %}</span>
+                    <span class="visually-hidden">{% trans "上一个" %}</span>
                 </a>
                 <a class="carousel-control-next"
                    href="#feeding-days-carousel"
                    role="button"
                    data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">{% trans "Next" %}</span>
+                    <span class="visually-hidden">{% trans "下一个" %}</span>
                 </a>
             {% endif %}
         </div>
     {% else %}
-        {% trans "None" %}
+        {% trans "无" %}
     {% endif %}
 {% endblock %}

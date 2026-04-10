@@ -4,26 +4,26 @@
     {% if object %}
         {{ object }}
     {% else %}
-        {% trans "Add a Height Entry" %}
+        {% trans "添加身高记录" %}
     {% endif %}
 {% endblock %}
 {% block breadcrumbs %}
     <li class="breadcrumb-item">
-        <a href="{% url 'core:height-list' %}">{% trans "Height" %}</a>
+        <a href="{% url 'core:height-list' %}">{% trans "身高" %}</a>
     </li>
     {% if object %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Update" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "编辑" %}</li>
     {% else %}
-        <li class="breadcrumb-item active" aria-current="page">{% trans "Add a Height Entry" %}</li>
+        <li class="breadcrumb-item active" aria-current="page">{% trans "添加身高记录" %}</li>
     {% endif %}
 {% endblock %}
 {% block content %}
     {% if object %}
         <h1>
-            {% trans Update %} <span class="text-info">{{ object }}</span>
+            {% trans "编辑" %} <span class="text-info">{{ object }}</span>
         </h1>
     {% else %}
-        <h1>{% trans "Add a Height Entry" %}</h1>
+        <h1>{% trans "添加身高记录" %}</h1>
     {% endif %}
     {% include 'babybuddy/form.html' %}
 {% endblock %}

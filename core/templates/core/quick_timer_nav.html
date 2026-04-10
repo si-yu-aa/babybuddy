@@ -7,7 +7,7 @@
     {% if children.count > 1 %}
         <div class="dropdown show">
         <a class="m-0 p-0 text-success"
-           title="{% trans "Quick Start Timer" %}"
+           title="{% trans "快速计时器" %}"
            href="#"
            role="button"
            id="quick-timer-menu-toggle"
@@ -17,7 +17,7 @@
     </a>
     <div class="dropdown-menu dropdown-menu-end"
          aria-labelledby="quick-timer-menu-toggle">
-        <h6 class="dropdown-header">{% trans "Quick Start Timer For…" %}</h6>
+        <h6 class="dropdown-header">{% trans "为...快速启动计时器" %}</h6>
         {% for child in children %}
             <button class="dropdown-item d-flex align-items-center"
                     type="submit"
@@ -30,7 +30,7 @@
     </div>
 </div>
 {% else %}
-<label class="visually-hidden">{% trans "Quick Start Timer" %}</label>
+<label class="visually-hidden">{% trans "快速计时器" %}</label>
 <button class="btn m-0 p-0 text-success">
     <i class="icon-2x icon-timer" aria-hidden="true"></i>
 </button>

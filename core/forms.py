@@ -135,13 +135,11 @@ class CoreModelForm(forms.ModelForm):
 
 class TaggableModelForm(forms.ModelForm):
     tags = TagField(
-        label=_("Tags"),
+        label="标签",
         widget=TagsEditor,
         required=False,
         strip=True,
-        help_text=_(
-            "Click on the tags to add (+) or remove (-) tags or use the text editor to create new tags."
-        ),
+        help_text="点击标签添加(+)或删除(-)标签，或使用文本编辑器创建新标签。",
     )
 
 
@@ -219,7 +217,7 @@ class ChildDeleteForm(forms.ModelForm):
         confirm_name = self.cleaned_data["confirm_name"]
         if confirm_name != str(self.instance):
             raise forms.ValidationError(
-                _("Name does not match child name."), code="confirm_mismatch"
+                "名称与孩子姓名不匹配。", code="confirm_mismatch"
             )
         return confirm_name
 

@@ -1,19 +1,19 @@
 {% extends 'babybuddy/page.html' %}
 {% load i18n widget_tweaks %}
 {% block title %}
-    {% trans "Welcome!" %}
+    {% trans "欢迎！" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Welcome!" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "欢迎！" %}</li>
 {% endblock %}
 {% block content %}
     <div class="px-2 py-5 bg rounded-3">
         <div class="container-fluid">
-            <h1 class="display-3">{% trans "Welcome to Baby Buddy!" %}</h1>
+            <h1 class="display-3">{% trans "欢迎使用 Baby Buddy！" %}</h1>
             <p class="lead">
                 {% blocktrans trimmed %}
-                    Learn about and predict baby's needs without (<em>as much</em>)
-                    guess work by using Baby Buddy to track &mdash;
+                    通过 Baby Buddy 记录宝宝的情况，了解并预测宝宝的需求，
+                    减少猜测！
                 {% endblocktrans %}
             </p>
             <hr class="my-4">
@@ -24,7 +24,7 @@
                             <i class="icon-2x icon-diaperchange" aria-hidden="true"></i>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title text-center">{% trans "Diaper Changes" %}</h3>
+                            <h3 class="card-title text-center">{% trans "尿布更换" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                             <i class="icon-2x icon-feeding" aria-hidden="true"></i>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title text-center">{% trans "Feedings" %}</h3>
+                            <h3 class="card-title text-center">{% trans "喂养" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             <i class="icon-2x icon-sleep" aria-hidden="true"></i>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title text-center">{% trans "Sleep" %}</h3>
+                            <h3 class="card-title text-center">{% trans "睡眠" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <i class="icon-2x icon-tummytime" aria-hidden="true"></i>
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title text-center">{% trans "Tummy Time" %}</h3>
+                            <h3 class="card-title text-center">{% trans "趴趴时间" %}</h3>
                         </div>
                     </div>
                 </div>
@@ -62,18 +62,16 @@
             <hr class="my-4">
             <p class="lead">
                 {% blocktrans trimmed %}
-                    As the amount of entries grows, Baby Buddy will help parents
-                    and caregivers to identify small patterns in baby's habits
-                    using the dashboard and graphs. Baby Buddy is mobile-friendly
-                    and uses a dark theme to help weary moms and dads with 2AM
-                    feedings and changings. To get started, just click the button
-                    below to add your first (or second, third, etc.) child!
+                    随着记录的增加，Baby Buddy 会帮助家长和看护者
+                    通过仪表盘和图表发现宝宝习惯的小规律。Baby Buddy 支持移动端，
+                    并使用深色主题来帮助疲惫的爸妈应对凌晨2点的喂养和换尿布。
+                    点击下方按钮添加第一个（或第二个、第三个...）孩子开始使用吧！
                 {% endblocktrans %}
             </p>
             <p class="text-center">
                 {% if perms.core.add_child %}
                     <a href="{% url 'core:child-add' %}" class="btn btn-lg btn-success">
-                        <i class="icon-child" aria-hidden="true"></i> {% trans "Add a Child" %}
+                        <i class="icon-child" aria-hidden="true"></i> {% trans "添加孩子" %}
                     </a>
                 {% endif %}
             </p>

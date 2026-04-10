@@ -105,13 +105,13 @@ class Tag(TagBase):
     LIGHT_COLOR = "#EFEFEF"
 
     color = models.CharField(
-        verbose_name=_("Color"),
+        verbose_name="颜色",
         max_length=32,
         default=random_color,
         validators=[RegexValidator(r"^#[0-9a-fA-F]{6}$")],
     )
     last_used = models.DateTimeField(
-        verbose_name=_("Last used"),
+        verbose_name="最后使用",
         default=timezone.now,
         blank=False,
     )
@@ -119,8 +119,8 @@ class Tag(TagBase):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = [Lower("name")]
-        verbose_name = _("Tag")
-        verbose_name_plural = _("Tags")
+        verbose_name = "标签"
+        verbose_name_plural = "标签"
 
     @property
     def complementary_color(self):
@@ -138,7 +138,7 @@ class Tag(TagBase):
 class Tagged(GenericTaggedItemBase):
     tag = models.ForeignKey(
         Tag,
-        verbose_name=_("Tag"),
+        verbose_name="标签",
         on_delete=models.CASCADE,
         related_name="%(app_label)s_%(class)s_items",
     )
@@ -160,13 +160,13 @@ class TaggableManager(TaggitTaggableManager):
 class BMI(models.Model):
     model_name = "bmi"
     child = models.ForeignKey(
-        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name=_("Child")
+        "Child", on_delete=models.CASCADE, related_name="bmi", verbose_name="孩子"
     )
-    bmi = models.FloatField(blank=False, null=False, verbose_name=_("BMI"))
+    bmi = models.FloatField(blank=False, null=False, verbose_name="BMI")
     date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+        blank=False, default=timezone.localdate, null=False, verbose_name="日期"
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -174,11 +174,11 @@ class BMI(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-date", "-id"]
-        verbose_name = _("BMI")
-        verbose_name_plural = _("BMI")
+        verbose_name = "BMI"
+        verbose_name_plural = "BMI"
 
     def __str__(self):
-        return str(_("BMI"))
+        return "BMI"
 
     def clean(self):
         validate_date(self.date, "date")
@@ -186,22 +186,22 @@ class BMI(models.Model):
 
 class Child(models.Model):
     model_name = "child"
-    first_name = models.CharField(max_length=255, verbose_name=_("First name"))
+    first_name = models.CharField(max_length=255, verbose_name="名")
     last_name = models.CharField(
-        blank=True, max_length=255, verbose_name=_("Last name")
+        blank=True, max_length=255, verbose_name="姓"
     )
-    birth_date = models.DateField(blank=False, null=False, verbose_name=_("Birth date"))
-    birth_time = models.TimeField(blank=True, null=True, verbose_name=_("Birth time"))
+    birth_date = models.DateField(blank=False, null=False, verbose_name="出生日期")
+    birth_time = models.TimeField(blank=True, null=True, verbose_name="出生时间")
     slug = models.SlugField(
         allow_unicode=True,
         blank=False,
         editable=False,
         max_length=100,
         unique=True,
-        verbose_name=_("Slug"),
+        verbose_name="Slug",
     )
     picture = models.ImageField(
-        blank=True, null=True, upload_to="child/picture/", verbose_name=_("Picture")
+        blank=True, null=True, upload_to="child/picture/", verbose_name="图片"
     )
 
     objects = models.Manager()
@@ -211,8 +211,8 @@ class Child(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["last_name", "first_name"]
-        verbose_name = _("Child")
-        verbose_name_plural = _("Children")
+        verbose_name = "孩子"
+        verbose_name_plural = "孩子们"
 
     def __str__(self):
         return self.name()
@@ -252,26 +252,26 @@ class DiaperChange(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="diaper_change",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     time = models.DateTimeField(
-        blank=False, default=timezone.localtime, null=False, verbose_name=_("Time")
+        blank=False, default=timezone.localtime, null=False, verbose_name="时间"
     )
-    wet = models.BooleanField(verbose_name=_("Wet"))
-    solid = models.BooleanField(verbose_name=_("Solid"))
+    wet = models.BooleanField(verbose_name="湿")
+    solid = models.BooleanField(verbose_name="固体")
     color = models.CharField(
         blank=True,
         choices=[
-            ("black", _("Black")),
-            ("brown", _("Brown")),
-            ("green", _("Green")),
-            ("yellow", _("Yellow")),
+            ("black", "黑色"),
+            ("brown", "棕色"),
+            ("green", "绿色"),
+            ("yellow", "黄色"),
         ],
         max_length=255,
-        verbose_name=_("Color"),
+        verbose_name="颜色",
     )
-    amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    amount = models.FloatField(blank=True, null=True, verbose_name="用量")
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -279,11 +279,11 @@ class DiaperChange(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-time"]
-        verbose_name = _("Diaper Change")
-        verbose_name_plural = _("Diaper Changes")
+        verbose_name = "尿布更换"
+        verbose_name_plural = "尿布更换"
 
     def __str__(self):
-        return str(_("Diaper Change"))
+        return "尿布更换"
 
     def attributes(self):
         attributes = []
@@ -305,44 +305,44 @@ class Feeding(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="feeding",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     start = models.DateTimeField(
         blank=False,
         default=timezone.localtime,
         null=False,
-        verbose_name=_("Start time"),
+        verbose_name="开始时间",
     )
     end = models.DateTimeField(
-        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+        blank=False, default=timezone.localtime, null=False, verbose_name="结束时间"
     )
     duration = models.DurationField(
-        editable=False, null=True, verbose_name=_("Duration")
+        editable=False, null=True, verbose_name="持续时间"
     )
     type = models.CharField(
         choices=[
-            ("breast milk", _("Breast milk")),
-            ("formula", _("Formula")),
-            ("fortified breast milk", _("Fortified breast milk")),
-            ("solid food", _("Solid food")),
+            ("breast milk", "母乳"),
+            ("formula", "配方奶"),
+            ("fortified breast milk", "强化母乳"),
+            ("solid food", "辅食"),
         ],
         max_length=255,
-        verbose_name=_("Type"),
+        verbose_name="类型",
     )
     method = models.CharField(
         choices=[
-            ("bottle", _("Bottle")),
-            ("left breast", _("Left breast")),
-            ("right breast", _("Right breast")),
-            ("both breasts", _("Both breasts")),
-            ("parent fed", _("Parent fed")),
-            ("self fed", _("Self fed")),
+            ("bottle", "奶瓶"),
+            ("left breast", "左侧"),
+            ("right breast", "右侧"),
+            ("both breasts", "双侧"),
+            ("parent fed", "家长喂"),
+            ("self fed", "自己吃"),
         ],
         max_length=255,
-        verbose_name=_("Method"),
+        verbose_name="方式",
     )
-    amount = models.FloatField(blank=True, null=True, verbose_name=_("Amount"))
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    amount = models.FloatField(blank=True, null=True, verbose_name="用量")
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -350,11 +350,11 @@ class Feeding(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-start"]
-        verbose_name = _("Feeding")
-        verbose_name_plural = _("Feedings")
+        verbose_name = "喂养"
+        verbose_name_plural = "喂养"
 
     def __str__(self):
-        return str(_("Feeding"))
+        return "喂养"
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -373,15 +373,15 @@ class HeadCircumference(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="head_circumference",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     head_circumference = models.FloatField(
-        blank=False, null=False, verbose_name=_("Head Circumference")
+        blank=False, null=False, verbose_name="头围"
     )
     date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+        blank=False, default=timezone.localdate, null=False, verbose_name="日期"
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -389,11 +389,11 @@ class HeadCircumference(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-date", "-id"]
-        verbose_name = _("Head Circumference")
-        verbose_name_plural = _("Head Circumference")
+        verbose_name = "头围"
+        verbose_name_plural = "头围"
 
     def __str__(self):
-        return str(_("Head Circumference"))
+        return "头围"
 
     def clean(self):
         validate_date(self.date, "date")
@@ -405,13 +405,13 @@ class Height(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="height",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
-    height = models.FloatField(blank=False, null=False, verbose_name=_("Height"))
+    height = models.FloatField(blank=False, null=False, verbose_name="身高")
     date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+        blank=False, default=timezone.localdate, null=False, verbose_name="日期"
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -419,11 +419,11 @@ class Height(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-date", "-id"]
-        verbose_name = _("Height")
-        verbose_name_plural = _("Height")
+        verbose_name = "身高"
+        verbose_name_plural = "身高"
 
     def __str__(self):
-        return str(_("Height"))
+        return "身高"
 
     def clean(self):
         validate_date(self.date, "date")
@@ -441,8 +441,8 @@ class HeightPercentile(models.Model):
         null=False,
         max_length=255,
         choices=[
-            ("girl", _("Girl")),
-            ("boy", _("Boy")),
+            ("girl", "女孩"),
+            ("boy", "男孩"),
         ],
     )
 
@@ -457,14 +457,14 @@ class HeightPercentile(models.Model):
 class Note(models.Model):
     model_name = "note"
     child = models.ForeignKey(
-        "Child", on_delete=models.CASCADE, related_name="note", verbose_name=_("Child")
+        "Child", on_delete=models.CASCADE, related_name="note", verbose_name="孩子"
     )
-    note = models.TextField(verbose_name=_("Note"))
+    note = models.TextField(verbose_name="备注")
     time = models.DateTimeField(
-        blank=False, default=timezone.localtime, verbose_name=_("Time")
+        blank=False, default=timezone.localtime, verbose_name="时间"
     )
     image = models.ImageField(
-        blank=True, null=True, upload_to="notes/images/", verbose_name=_("Image")
+        blank=True, null=True, upload_to="notes/images/", verbose_name="图片"
     )
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -473,11 +473,11 @@ class Note(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-time"]
-        verbose_name = _("Note")
-        verbose_name_plural = _("Notes")
+        verbose_name = "备注"
+        verbose_name_plural = "备注"
 
     def __str__(self):
-        return str(_("Note"))
+        return "备注"
 
 
 class Pumping(models.Model):
@@ -486,27 +486,27 @@ class Pumping(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="pumping",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     start = models.DateTimeField(
         blank=False,
         default=timezone.localtime,
         null=False,
-        verbose_name=_("Start time"),
+        verbose_name="开始时间",
     )
     end = models.DateTimeField(
         blank=False,
         default=timezone.localtime,
         null=False,
-        verbose_name=_("End time"),
+        verbose_name="结束时间",
     )
     duration = models.DurationField(
         editable=False,
         null=True,
-        verbose_name=_("Duration"),
+        verbose_name="持续时间",
     )
-    amount = models.FloatField(blank=False, null=False, verbose_name=_("Amount"))
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    amount = models.FloatField(blank=False, null=False, verbose_name="用量")
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -514,11 +514,11 @@ class Pumping(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-start"]
-        verbose_name = _("Pumping")
-        verbose_name_plural = _("Pumping")
+        verbose_name = "吸奶"
+        verbose_name_plural = "吸奶"
 
     def __str__(self):
-        return str(_("Pumping"))
+        return "吸奶"
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -534,22 +534,22 @@ class Pumping(models.Model):
 class Sleep(models.Model):
     model_name = "sleep"
     child = models.ForeignKey(
-        "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name=_("Child")
+        "Child", on_delete=models.CASCADE, related_name="sleep", verbose_name="孩子"
     )
     start = models.DateTimeField(
         blank=False,
         default=timezone.localtime,
         null=False,
-        verbose_name=_("Start time"),
+        verbose_name="开始时间",
     )
     end = models.DateTimeField(
-        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+        blank=False, default=timezone.localtime, null=False, verbose_name="结束时间"
     )
-    nap = models.BooleanField(null=False, blank=True, verbose_name=_("Nap"))
+    nap = models.BooleanField(null=False, blank=True, verbose_name="小睡")
     duration = models.DurationField(
-        editable=False, null=True, verbose_name=_("Duration")
+        editable=False, null=True, verbose_name="持续时间"
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -558,11 +558,11 @@ class Sleep(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-start"]
-        verbose_name = _("Sleep")
-        verbose_name_plural = _("Sleep")
+        verbose_name = "睡眠"
+        verbose_name_plural = "睡眠"
 
     def __str__(self):
-        return str(_("Sleep"))
+        return "睡眠"
 
     def save(self, *args, **kwargs):
         if self.nap is None:
@@ -588,15 +588,15 @@ class Temperature(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="temperature",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     temperature = models.FloatField(
-        blank=False, null=False, verbose_name=_("Temperature")
+        blank=False, null=False, verbose_name="体温"
     )
     time = models.DateTimeField(
-        blank=False, default=timezone.localtime, null=False, verbose_name=_("Time")
+        blank=False, default=timezone.localtime, null=False, verbose_name="时间"
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -604,11 +604,11 @@ class Temperature(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-time"]
-        verbose_name = _("Temperature")
-        verbose_name_plural = _("Temperature")
+        verbose_name = "体温"
+        verbose_name_plural = "体温"
 
     def __str__(self):
-        return str(_("Temperature"))
+        return "体温"
 
     def clean(self):
         validate_time(self.time, "time")
@@ -622,20 +622,20 @@ class Timer(models.Model):
         null=True,
         on_delete=models.CASCADE,
         related_name="timers",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     name = models.CharField(
-        blank=True, max_length=255, null=True, verbose_name=_("Name")
+        blank=True, max_length=255, null=True, verbose_name="名称"
     )
     start = models.DateTimeField(
-        default=timezone.now, blank=False, verbose_name=_("Start time")
+        default=timezone.now, blank=False, verbose_name="开始时间"
     )
-    active = models.BooleanField(default=True, editable=False, verbose_name=_("Active"))
+    active = models.BooleanField(default=True, editable=False, verbose_name="活跃")
     user = models.ForeignKey(
         "auth.User",
         on_delete=models.CASCADE,
         related_name="timers",
-        verbose_name=_("User"),
+        verbose_name="用户",
     )
 
     objects = models.Manager()
@@ -643,11 +643,11 @@ class Timer(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-start"]
-        verbose_name = _("Timer")
-        verbose_name_plural = _("Timers")
+        verbose_name = "计时器"
+        verbose_name_plural = "计时器"
 
     def __str__(self):
-        return self.name or str(format_lazy(_("Timer #{id}"), id=self.id))
+        return self.name or f"计时器 #{self.id}"
 
     @property
     def title_with_child(self):
@@ -691,22 +691,22 @@ class TummyTime(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="tummy_time",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
     start = models.DateTimeField(
         blank=False,
         default=timezone.localtime,
         null=False,
-        verbose_name=_("Start time"),
+        verbose_name="开始时间",
     )
     end = models.DateTimeField(
-        blank=False, default=timezone.localtime, null=False, verbose_name=_("End time")
+        blank=False, default=timezone.localtime, null=False, verbose_name="结束时间"
     )
     duration = models.DurationField(
-        editable=False, null=True, verbose_name=_("Duration")
+        editable=False, null=True, verbose_name="持续时间"
     )
     milestone = models.CharField(
-        blank=True, max_length=255, verbose_name=_("Milestone")
+        blank=True, max_length=255, verbose_name="里程碑"
     )
     tags = TaggableManager(blank=True, through=Tagged)
 
@@ -715,11 +715,11 @@ class TummyTime(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-start"]
-        verbose_name = _("Tummy Time")
-        verbose_name_plural = _("Tummy Time")
+        verbose_name = "俯卧时间"
+        verbose_name_plural = "俯卧时间"
 
     def __str__(self):
-        return str(_("Tummy Time"))
+        return "趴趴时间"
 
     def save(self, *args, **kwargs):
         if self.start and self.end:
@@ -739,13 +739,13 @@ class Weight(models.Model):
         "Child",
         on_delete=models.CASCADE,
         related_name="weight",
-        verbose_name=_("Child"),
+        verbose_name="孩子",
     )
-    weight = models.FloatField(blank=False, null=False, verbose_name=_("Weight"))
+    weight = models.FloatField(blank=False, null=False, verbose_name="体重")
     date = models.DateField(
-        blank=False, default=timezone.localdate, null=False, verbose_name=_("Date")
+        blank=False, default=timezone.localdate, null=False, verbose_name="日期"
     )
-    notes = models.TextField(blank=True, null=True, verbose_name=_("Notes"))
+    notes = models.TextField(blank=True, null=True, verbose_name="备注")
     tags = TaggableManager(blank=True, through=Tagged)
 
     objects = models.Manager()
@@ -753,11 +753,11 @@ class Weight(models.Model):
     class Meta:
         default_permissions = ("view", "add", "change", "delete")
         ordering = ["-date", "-id"]
-        verbose_name = _("Weight")
-        verbose_name_plural = _("Weight")
+        verbose_name = "体重"
+        verbose_name_plural = "体重"
 
     def __str__(self):
-        return str(_("Weight"))
+        return "体重"
 
     def clean(self):
         validate_date(self.date, "date")
@@ -775,8 +775,8 @@ class WeightPercentile(models.Model):
         null=False,
         max_length=255,
         choices=[
-            ("girl", _("Girl")),
-            ("boy", _("Boy")),
+            ("girl", "女孩"),
+            ("boy", "男孩"),
         ],
     )
 

@@ -1,17 +1,17 @@
 {% extends 'babybuddy/page.html' %}
 {% load datetime i18n imagekit widget_tweaks %}
 {% block title %}
-    {% trans "Notes" %}
+    {% trans "备注" %}
 {% endblock %}
 {% block breadcrumbs %}
-    <li class="breadcrumb-item active" aria-current="page">{% trans "Notes" %}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "备注" %}</li>
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Notes" %}
+        {% trans "备注" %}
         {% if perms.core.add_note %}
             <a href="{% url 'core:note-add' %}" class="btn btn-sm btn-success">
-                <i class="icon-note" aria-hidden="true"></i> {% trans "Add Note" %}
+                <i class="icon-note" aria-hidden="true"></i> {% trans "添加备注" %}
             </a>
         {% endif %}
     </h1>
@@ -20,14 +20,14 @@
         <table class="table table-instances table-borderless table-striped table-hover align-middle">
             <thead>
                 <tr>
-                    <th>{% trans "Actions" %}</th>
-                    <th>{% trans "Time" %}</th>
+                    <th>{% trans "操作" %}</th>
+                    <th>{% trans "时间" %}</th>
                     {% if not unique_child %}
-                        <th>{% trans "Child" %}</th>
+                        <th>{% trans "孩子" %}</th>
                     {% endif %}
-                    <th>{% trans "Image" %}</th>
-                    <th>{% trans "Note" %}</th>
-                    <th>{% trans "Tags" %}</th>
+                    <th>{% trans "图片" %}</th>
+                    <th>{% trans "备注" %}</th>
+                    <th>{% trans "标签" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                         <td>
                             <div class="btn-group btn-group-sm"
                                  role="group"
-                                 aria-label="{% trans "Actions" %}">
+                                 aria-label="{% trans "操作" %}">
                                 {% if perms.core.change_note %}
                                     <a href="{% url 'core:note-update' note.id %}" class="btn btn-primary">
                                         <i class="icon-update" aria-hidden="true"></i>
@@ -68,7 +68,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <th colspan="5">{% trans "No notes found." %}</th>
+                            <th colspan="5">{% trans "未找到备注。" %}</th>
                         </tr>
                     {% endfor %}
                 </tbody>
